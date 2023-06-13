@@ -1,0 +1,55 @@
+<style>
+  body {
+    background-image: url('/assets/4.jfif');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+  }
+  
+  .form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  .card {
+    max-width: 500px;
+    margin: 0 auto;
+    background-image: url('/assets/1.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+</style>
+<body>
+<div class="row mt-1">
+<div class="form-container">
+  <div class="container my-5">
+    <div class="card shadow-sm">
+      <div class="card-header bg-dark text-white">
+        <h3 class="m-0">Update Category</h3>
+      </div>
+      <div class="card-body">
+        <div *ngIf="updateForm">
+          <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input type="text" formControlName="Name" class="form-control m-3" id="name" maxlength="12">
+              <div *ngIf="updateForm.get('Name')?.invalid && (updateForm.get('Name')?.dirty || updateForm.get('Name')?.touched)">
+                <!-- <div *ngIf="updateForm.get('Name')?.errors?.['maxLength']" class="text-danger">* Name should not be more than 20 characters.</div> -->
+                <div *ngIf="updateForm.get('Name')?.errors?.['required']" class="text-danger">* Name is required.</div>
+                <div *ngIf="updateForm.get('Name')?.errors?.['startsWithNumber']" class="text-danger">* Name must be in characters.</div>
+              </div>
+            </div>
+            <div class="form-group mt-4">
+              <button type="submit" class="btn btn-outline-success mx-2">Save</button>
+              <button type="button" [routerLink]="'/category'" class="btn btn-outline-danger">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</body>

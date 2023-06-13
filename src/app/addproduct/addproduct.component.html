@@ -1,0 +1,75 @@
+<style>
+.container {
+  background-image: url('/assets/log11.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.card-body{
+  background-image: url('/assets/1.jpg');
+  background-size: cover;
+  background-position: center;
+}
+</style>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card mt-3">
+        <div class="card-body">
+          <div>
+          <h1 class="card-title bg-success text-center mb-4 rounded text-dark">Add Product</h1>
+          </div>
+          <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name:</label>
+              <input id="name" type="text" class="form-control" formControlName="Name" maxlength="12" pattern="^[^\s]+(\s+[^\s]+)*$"
+                (blur)="productForm.get('Name')?.setValue(productForm.get('Name')?.value.trim())">
+              <div *ngIf="productForm.get('Name')?.invalid && (productForm.get('Name')?.dirty || productForm.get('Name')?.touched)">
+                <div *ngIf="productForm.get('Name')?.errors?.['required']" class="form-text text-danger">* Name is required.</div>
+                <div *ngIf="productForm.get('Name')?.errors?.['pattern']" class="form-text text-danger">* Name should not contain spaces.</div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="qty" class="form-label">Qty</label>
+              :<input id="qty" type="number" class="form-control" formControlName="Qty"/>
+              <div *ngIf="productForm.get('Qty')?.invalid && (productForm.get('Qty')?.dirty || productForm.get('Qty')?.touched)">
+                <div *ngIf="productForm.get('Qty')?.errors?.['required']" class="form-text text-danger">* Qty is required.</div>
+                <div *ngIf="productForm.get('Qty')?.errors?.['min']" class="form-text text-danger">* Qty must be more than 0</div>
+                <!-- <div *ngIf="productForm.get('Qty')?.errors?.['max']" class="form-text text-danger">* Max upto 6</div> -->
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="rate" class="form-label">Rate</label>
+              :<input id="rate" type="number" class="form-control" formControlName="Rate" />
+              <div *ngIf="productForm.get('Rate')?.invalid && (productForm.get('Rate')?.dirty || productForm.get('Rate')?.touched)">
+                <div *ngIf="productForm.get('Rate')?.errors?.['required']" class="form-text text-danger">* Rate is required.</div>
+              </div>
+            </div>
+            <div class="mb-3 form-check">
+              <label class="form-check-label">Is Active</label>
+              <input type="checkbox" class="form-check-input" formControlName="IsActive" />
+              <div *ngIf="productForm.get('IsActive')?.invalid && (productForm.get('IsActive')?.dirty || productForm.get('IsActive')?.touched)">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="category">Category:</label>
+              <select formControlName="Category" id="catId" class="form-control" placeholder="category">
+                <option *ngFor="let category of CategoryList" [value]="category.id">{{ category.name }}</option>
+              </select>
+              <div *ngIf="productForm.get('Category')?.touched && productForm.get('Category')?.errors">
+                <div *ngIf="productForm.get('Category')?.errors?.['required']" class="text-danger">Category is required.</div>
+                <div *ngIf="productForm.get('Category')?.errors?.['min']" class="text-danger">Category must be greater than 0.</div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Image</label>
+              :<input type="file" class="form-control" (change)="handleUpload($event)">
+            </div>
+            <div class="d-grid gap-2">
+              <button class="btn btn-success" type="submit">Add Product</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<div style="margin-top: 1%;">
+<div class="section-wrapper" style="background-image: url('/assets/log11.jpg')">
+<button routerLink="addproduct" class="m-1 btn btn-outline-secondary btn-light">Add Product</button>
+<div class="row mt-1">
+    <div class="col-sm-5 ms-2">
+        <input type="file" (change)="handleUpload($event)" class="form-control">
+    </div>
+    <div class="col-sm-2">
+        <input type="button" style="width: 75px;" 
+        class="btn border border-1 text-light bg-success opacity-75" (click)="onSave()" value="New" />
+    </div>
+</div>
+<div class="row m-2 text-white border border-1 border-secondary rounded bg-opacity-50 bg-dark">
+    <div class="col-sm-1 p-2">SR#</div>
+    <div class="col-sm-2 p-2">Name</div>
+    <div class="col-sm-1 p-2">Qty</div>
+    <div class="col-sm-2 p-2">Rate</div>
+    <div class="col-sm-2 p-2">Category</div>
+    <div class="col-sm-2 p-2">Profile</div>
+    <div class="col-sm-2 p-2">Action</div>
+</div>
+<div class="row m-2 text-primary border border-1 border-secondary rounded bg-light" 
+*ngFor="let each of ProductList let i = index">
+    <div class="col-sm-1 p-2">
+        {{i + 1}}
+    </div>
+    <div class="col-sm-2 p-2">
+        {{each.name}}
+    </div>
+    <div class="col-sm-1 p-2">
+        {{each.qty}}
+    </div>
+    <div class="col-sm-2 p-2">
+        Rs.{{each.rate}}/-
+    </div>
+    <div class="col-sm-2 p-2">
+       {{catname(each.catId)}}
+    </div>
+    <div class="col-sm-2 p-2">
+        <img src="{{imageUrl + each.profile}}" height="30" width="30" alt="Image not found">
+    </div>
+    <div class="col-sm-2 p-1">
+        <input type="button" style="width: 75px;" 
+        class="btn border border-1 text-success" (click)="onEdit(each.id)" value="Edit" />
+        <input type="button" style="width: 75px;" 
+        class="btn border border-1 ms-2 text-danger" (click)="onDelete(each.id)" value="Delete" />
+    </div>
+</div> 
+</div>
+</div>

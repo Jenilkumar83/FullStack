@@ -1,0 +1,38 @@
+<style>
+    body {
+      background-image: url('/assets/3.jpg');
+      background-size: cover;
+      background-position: center;
+      min-height: 90vh;
+    }
+</style>
+<body>
+<div class="container">
+<div class="row mt-1">
+    <!-- <div class="col-sm-5 ms-2">
+        <input type="file" (change)="handleUpload($event)" class="form-control border border-1 border-secondary">
+    </div> -->
+    <div class="col-sm-2">
+<input type="button" class="btn border border-1 text-light bg-success m-lg-2" routerLink="/addcat" value="Add"/>
+    </div>
+</div>
+<div class="row m-2 text-light border border-1 border-warning rounded bg-opacity-50 bg-dark">
+    <div class="col-sm-3 p-2">SR.No</div>
+    <div class="col-sm-3 p-2">Name</div>
+    <div class="col-sm-3 p-2">Action</div>
+</div>
+<div class="row m-2 text-light border border-1 border-warning rounded bg-light opacity-75"
+    *ngFor="let each of CategoryList let i=index">
+    <div class="col-sm-3 p-2 text-dark">
+        {{i+1}}
+    </div>
+    <div class="col-sm-3 p-2 text-dark">
+        {{each.name}}
+    </div>
+    <div class="col-sm-3 p-2">
+        <input type="button" style="width:75px;" class = "btn btn-outline-success" (click)="OnEdit(each.id)" value="Edit" />
+        <input type="button" value="Delete" class="btn btn-outline-danger ms-2" (click)="onDelete(each.id)">
+    </div>
+</div>
+</div>
+</body>

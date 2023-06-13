@@ -1,0 +1,76 @@
+<style>
+  .container {
+    background-image: url('/assets/log11.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  .card-body{
+    background-image: url('/assets/1.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  </style>
+<div class="container" *ngIf="updateForm">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+<div class="card mt-3">
+  <div class="card-body">
+    <h1 class="card-title bg-info text-center mb-4 rounded text-dark">Edit Product</h1>
+    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="mt-4">
+      <div class="mb-2">
+        <label class="form-label">Name:</label>
+        <input type="text" formControlName="Name" class="form-control" maxlength="12" pattern="^[^\s]+(\s+[^\s]+)*$"
+          (blur)="updateForm.get('Name').setValue(updateForm.get('Name').value.trim())">
+        <div *ngIf="updateForm.get('Name')?.invalid && (updateForm.get('Name')?.dirty || updateForm.get('Name')?.touched)">
+          <span *ngIf="updateForm.get('Name')?.errors?.['required']" class="text-danger">* Name is required.</span>
+          <span *ngIf="updateForm.get('Name')?.errors?.['startsWithNumber']" class="text-danger">* Name must be in characters.</span>
+          <span *ngIf="updateForm.get('Name')?.errors?.['pattern']" class="text-danger">* Name should not contain spaces.</span>
+        </div>
+      </div>
+      <div class="mb-2">
+        <label class="form-label">Qty:</label>
+        <input type="number" formControlName="Qty" class="form-control">
+        <div *ngIf="updateForm.get('Qty')?.invalid && (updateForm.get('Qty')?.dirty || updateForm.get('Qty')?.touched)">
+          <span *ngIf="updateForm.get('Qty')?.errors?.['required']" class="text-danger" >* Qty is required.</span>
+          <span *ngIf="updateForm.get('Qty')?.errors?.['min']" class="text-danger" >* Qty should be more than 0</span>
+        </div>
+      </div>
+      <div class="mb-2">
+        <label class="form-label">Rate:</label>
+        <input type="number" formControlName="Rate" class="form-control">
+        <div *ngIf="updateForm.get('Rate')?.invalid && (updateForm.get('Rate')?.dirty || updateForm.get('Rate')?.touched)">
+          <span *ngIf="updateForm.get('Rate')?.errors?.['required']" class="text-danger" >* Rate is required.</span>
+          <span *ngIf="updateForm.get('Rate')?.errors?.['min']" class="text-danger" >* Rate should be more than 0</span>
+        </div>
+      </div>
+      <div class="mb-2">
+        <div class="form-check">
+          <input type="checkbox" formControlName="IsActive" class="form-check-input" id="isActiveCheck">
+          <label class="form-check-label" for="isActiveCheck">Is Active:</label>
+        </div>
+        <div *ngIf="updateForm.get('IsActive')?.invalid && (updateForm.get('IsActive')?.dirty || updateForm.get('IsActive')?.touched)">
+          <!-- div class="invalid-feedback">Please select a value for IsActive.</div> -->
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="category">Category:</label>
+        <select formControlName="Category" id="catId" class="form-control" placeholder="category">
+          <option *ngFor="let category of CategoryList" [value]="category.id">{{ category.name }}</option>
+        </select>
+        <div *ngIf="updateForm.get('Category').touched && updateForm.get('Category').errors">
+          <div *ngIf="updateForm.get('Category').errors.required" class="text-danger">Category is required.</div>
+          <div *ngIf="updateForm.get('Category').errors.min" class="text-danger">Category must be greater than 0.</div>
+        </div>
+      </div>
+      <div class="mb-2">
+        <label class="form-label">Upload Image:</label>
+        <input type="file" (change)="handleUpload($event)" class="form-control">
+      </div>
+      <button type="submit" class="btn btn-info">Save</button> &nbsp;
+      <button type="button" [routerLink]="'/product'" class="btn btn-secondary">Cancel</button>
+    </form>
+  </div>
+</div>
+</div>
+  </div>
+</div>
